@@ -17,7 +17,8 @@ after_success:
     # Log in to the docker CLI
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
-    - docker push yasubay/multi-client
+    
     - docker push yasubay/multi-nginx
     - docker push yasubay/multi-server
     - docker push yasubay/multi-worker
+    - docker push yasubay/multi-client
