@@ -17,8 +17,21 @@ after_success:
     # Log in to the docker CLI
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
-    
+    - docker push yasubay/multi-client
     - docker push yasubay/multi-nginx
     - docker push yasubay/multi-server
     - docker push yasubay/multi-worker
-    - docker push yasubay/multi-client
+
+deploy:
+    edge: true
+    provider: elasticbeanstalk
+    region: us-west-2
+    app: multi-docker
+    env: MultiDocker-env
+    bucket_name: elasticbeanstalk-us-west-2-540216477783
+    bucket_path: docker-multi
+    on:
+        branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+
